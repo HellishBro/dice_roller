@@ -8,7 +8,16 @@ version = "0.0.1"
 authors = [
     { name = "HellishBro" }
 ]
+license-files = [
+    "LICENSE"
+]
+keywords = [
+    "dice", "expressions"
+]
 description = "Unofficial port of dice-roller/rpg-dice-roller to Python."
 dependencies = [
     "setuptools>=77.0.3",
 ]
+
+[project.urls]
+Homepage = "https://github.com/HellishBro/dice_roller"
