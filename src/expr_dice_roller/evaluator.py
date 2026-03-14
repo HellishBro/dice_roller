@@ -63,19 +63,19 @@ class Environment:
         return gzip.compress(json.dumps({
             "parent": self.parent.serialize() if self.parent else None,
             "variables": {
-                k: (v if isinstance(v, (float, int)) else Printer().visit(v))
+                k: v if isinstance(v, (float, int)) else Printer().visit(v.definition)
                 for k, v in self.variables.items()
             }
         }).encode("utf-8"))
 
     @classmethod
-    def deserialize(cls, data: bytes) -> Environment:
+    def deserialize(cls, evaluator: IEvaluator, data: bytes) -> Environment:
         parsed = json.loads(gzip.decompress(data).decode("utf-8"))
         env = Environment()
         if parsed.get("parent"):
-            env.parent = Environment.deserialize(parsed.get("parent"))
+            env.parent = Environment.deserialize(evaluator, parsed.get("parent"))
         for k, v in parsed.get("variables", {}).items():
-            env.variables[k] = v if isinstance(v, (float, int)) else Parser(Lexer(v).lex()).expression()
+            env.variables[k] = v if isinstance(v, (float, int)) else evaluator.visit(Parser(Lexer(v).lex()).expression())[1]
         return env
 
 

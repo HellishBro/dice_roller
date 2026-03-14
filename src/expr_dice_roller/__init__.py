@@ -3,7 +3,7 @@ from .parser import Parser
 from .evaluator import Evaluator, Printer, Environment
 from dataclasses import dataclass
 
-__all__ = ["format_expression", "EvaluationResult", "evaluate", "Environment"]
+__all__ = ["format_expression", "EvaluationResult", "evaluate", "Environment", "Evaluator"]
 
 def format_expression(expression: str) -> str:
     t = Parser(Lexer(expression).lex()).expression()

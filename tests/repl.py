@@ -6,7 +6,8 @@ while True:
     inp = input("> ")
     try:
         print(format_expression(inp))
-        res = evaluate(inp, Environment.deserialize(env), True)
+        e = Environment.deserialize(Evaluator(), env)
+        res = evaluate(inp, e, True)
         env = res.environment.serialize()
         print(res.representation, "=", res.value)
     except ValueError as e:
