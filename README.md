@@ -39,3 +39,6 @@ Example functions:
 Extraneous arguments beyond the arity of the function will be voided. Similarly, missing arguments below the arity of the function will be turned to `0`.
 
 Functions cannot be arbitrarily chained yet; currently, functions are parsed as special exceptions to certain rules.
+
+## Usage
+Any `ValueError`s when using `evaluate()` or `format_expression()` should be caught in the parent program.
