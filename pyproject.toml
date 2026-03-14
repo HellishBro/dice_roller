@@ -1,25 +1,25 @@
 [build-system]
-requires = ["setuptools >= 77.0.3"]
+requires = [
+    "build>=1.4.0",
+    "setuptools>=77.0.3",
+    "twine>=6.2.0",
+]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "expr_dice_roller"
-version = "0.0.1"
+version = "0.0.2"
 authors = [
     { name = "HellishBro" }
 ]
 license-files = [
     "LICENSE"
 ]
+readme = "README.md"
 keywords = [
     "dice", "expressions"
 ]
-description = "Unofficial port of dice-roller/rpg-dice-roller to Python."
-dependencies = [
-    "build>=1.4.0",
-    "setuptools>=77.0.3",
-    "twine>=6.2.0",
-]
+description = "A dice roller expression language with function support."
 classifiers = [
     "Programming Language :: Python :: 3",
     "Operating System :: OS Independent",
