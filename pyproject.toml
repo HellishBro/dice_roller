@@ -18,6 +18,7 @@ description = "Unofficial port of dice-roller/rpg-dice-roller to Python."
 dependencies = [
     "build>=1.4.0",
     "setuptools>=77.0.3",
+    "twine>=6.2.0",
 ]
 classifiers = [
     "Programming Language :: Python :: 3",
