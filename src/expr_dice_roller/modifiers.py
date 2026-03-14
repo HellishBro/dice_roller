@@ -1,7 +1,7 @@
 from __future__ import annotations
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
-    from dice_roller import RollResult, Dice
+    from .dice_roller import RollResult, Dice
 
 MAX_ITERATIONS = 100
 

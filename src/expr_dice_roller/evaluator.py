@@ -1,6 +1,9 @@
-from lexer import TT
-from parser import Expr, BinOp, Unary, Number, Dice, Grouping, Predicate, FuncCall, Variable, Function
-from dice_roller import Dice as DDice, DiceRoller, Predicate as DPredicate
+from __future__ import annotations
+from .lexer import TT, Lexer
+from .parser import Expr, BinOp, Unary, Number, Dice, Grouping, Predicate, FuncCall, Variable, Function, Parser
+from .dice_roller import Dice as DDice, DiceRoller, Predicate as DPredicate
+import json
+import gzip
 
 class IEvaluator:
     def __init__(self, environment=None):
@@ -12,7 +15,7 @@ class IEvaluator:
     def exit(self):
         self.environment = self.environment.exit()
 
-    def visit(self, node: Expr):
+    def visit(self, node):
         return getattr(self, "visit_" + node.__class__.__name__)(node)
 
 class EvalFunc:
@@ -55,6 +58,25 @@ class Environment:
         p = self.parent
         self.parent = None
         return p
+
+    def serialize(self) -> bytes:
+        return gzip.compress(json.dumps({
+            "parent": self.parent.serialize() if self.parent else None,
+            "variables": {
+                k: (v if isinstance(v, (float, int)) else Printer().visit(v))
+                for k, v in self.variables.items()
+            }
+        }).encode("utf-8"))
+
+    @classmethod
+    def deserialize(cls, data: bytes) -> Environment:
+        parsed = json.loads(gzip.decompress(data).decode("utf-8"))
+        env = Environment()
+        if parsed.get("parent"):
+            env.parent = Environment.deserialize(parsed.get("parent"))
+        for k, v in parsed.get("variables", {}).items():
+            env.variables[k] = v if isinstance(v, (float, int)) else Parser(Lexer(v).lex()).expression()
+        return env
 
 
 ReprValue = tuple[str, float | EvalFunc]

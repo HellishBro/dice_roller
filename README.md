@@ -4,22 +4,14 @@ Install from PyPI: `pip install expr_dice_roller`
 
 Quick command-line dice roller set up:
 ```python
-from expr_dice_roller import format_expression, evaluate
-
-env = None
-
-while True:
-    inp = input("> ")
-    try:
-        print(format_expression(inp))
-        res = evaluate(inp, env, True)
-        env = res.environment
-        print(res.representation, "=", res.value)
-    except ValueError as e:
-        print(e)
+from expr_dice_roller import evaluate
+result = evaluate("3d20d1") # 3d20 and drop only the lowest roll.
+print(result.value)
 ```
 
 It is possible to serialize an expression by using `format_expression()`, which can then be used in `evaluate()`.
+
+It is also possible to serialize and deserialize an `Environment`.
 
 ## Language Specifications
 Arithmetic words with the operators `+`, `-`, `*`, `/`, and `^`. Unary operators `-` and `+` are supported.

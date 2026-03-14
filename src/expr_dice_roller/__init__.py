@@ -1,9 +1,9 @@
-from lexer import Lexer
-from parser import Parser
-from evaluator import Evaluator, Printer, Environment
+from .lexer import Lexer
+from .parser import Parser
+from .evaluator import Evaluator, Printer, Environment
 from dataclasses import dataclass
 
-__all__ = ["format_expression", "EvaluationResult", "evaluate"]
+__all__ = ["format_expression", "EvaluationResult", "evaluate", "Environment"]
 
 def format_expression(expression: str) -> str:
     t = Parser(Lexer(expression).lex()).expression()
@@ -30,16 +30,3 @@ def evaluate(expression: str, environment: Environment | None = None, assign_las
             val = None
         return EvaluationResult(expr_eval.environment, rep, val)
     return EvaluationResult(environment, "", None)
-
-if __name__ == "__main__":
-    env = None
-
-    while True:
-        inp = input("> ")
-        try:
-            print(format_expression(inp))
-            res = evaluate(inp, env, True)
-            env = res.environment
-            print(res.representation, "=", res.value)
-        except ValueError as e:
-            print(e)

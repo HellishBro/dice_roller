@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from random import randint
-import modifiers as mods
-from modifiers import MAX_ITERATIONS
+
+from . import modifiers as mods
 
 
 @dataclass

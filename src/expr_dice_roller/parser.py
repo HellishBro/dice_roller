@@ -1,6 +1,6 @@
 from typing import Literal
 
-from lexer import TT, Token, NAME_TTs
+from .lexer import TT, Token, NAME_TTs
 from dataclasses import dataclass
 
 class Expr: pass
