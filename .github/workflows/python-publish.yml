@@ -2,8 +2,8 @@ name: Upload Python Package
 
 on:
   push:
-    tags:
-      - "v*"
+    branches:
+      - master
 
 permissions:
   contents: read
@@ -11,6 +11,8 @@ permissions:
 jobs:
   build-and-publish:
     runs-on: ubuntu-latest
+
+    if: startsWith(github.event.head_commit.message, 'publish')
 
     environment:
       name: pypi
