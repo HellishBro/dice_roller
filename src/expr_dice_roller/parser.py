@@ -119,7 +119,11 @@ class Parser:
         return self.expo()
 
     def expo(self) -> Expr:
+        pos = self.position
         value = self.primitive()
+        if value is None:
+            self.position = pos
+            self.atom()
         while token := self.match(TT.CARET):
             if isinstance(value, BinOp):
                 value = BinOp(value.left, value.operator, BinOp(value.right, token, self.primitive()))
@@ -217,7 +221,7 @@ class Parser:
     def atom(self) -> Expr:
         r = self.atom_optional()
         if r is None:
-            self.expect(TT.NUMBER)
+            self.expect(TT.NUMBER, TT.LPAREN, TT.NAME)
         return r
 
     def atom_optional(self) -> Expr | Function | None:
