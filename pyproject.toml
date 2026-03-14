@@ -16,7 +16,12 @@ keywords = [
 ]
 description = "Unofficial port of dice-roller/rpg-dice-roller to Python."
 dependencies = [
+    "build>=1.4.0",
     "setuptools>=77.0.3",
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
 ]
 
 [project.urls]
