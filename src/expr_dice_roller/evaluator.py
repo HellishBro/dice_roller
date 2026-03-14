@@ -103,10 +103,15 @@ class Evaluator(IEvaluator):
             res = left_val * right_val
             op = "*"
         elif operator.tt == TT.DIV:
-            res = left_val / right_val
+            if right_val == 0:
+                res = 0
+            else:
+                res = left_val / right_val
             op = "/"
         elif operator.tt == TT.CARET:
             res = left_val ** right_val
+            if isinstance(res, complex):
+                res = 0
             op = "^"
         return f"{left_repr} {op} {right_repr}", res
 

@@ -1,6 +1,6 @@
 from typing import Literal
 
-from .lexer import TT, Token, NAME_TTs
+from .lexer import TT, Token, NAME_TTs, token_names
 from dataclasses import dataclass
 
 class Expr: pass
@@ -93,7 +93,7 @@ class Parser:
     def expect(self, *tt: TT) -> Token:
         if match := self.match(*tt):
             return match
-        raise ValueError(f"Expected one of the following: {tt}.")
+        raise ValueError(f"Expected one of the following: {', '.join(token_names[t] for t in tt)}.")
 
 
     def binop(self, next_func, operators: list[TT]) -> Expr:

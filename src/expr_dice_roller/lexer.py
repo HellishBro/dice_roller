@@ -41,6 +41,38 @@ class TT(Enum):
 
     ERROR = auto()
 
+token_names = {
+    TT.NUMBER: "number",
+    TT.NAME: "name",
+    TT.D: "d",
+    TT.DL: "dl",
+    TT.DH: "dh",
+    TT.K: "k",
+    TT.KL: "kl",
+    TT.KH: "kh",
+    TT.MIN: "min",
+    TT.MAX: "max",
+    TT.R: "r",
+    TT.RO: "ro",
+    TT.F: "f",
+    TT.PLUS: "+",
+    TT.MINUS: "-",
+    TT.STAR: "*",
+    TT.DIV: "/",
+    TT.PERCENT: "%",
+    TT.COMMA: ",",
+    TT.BANG: "!",
+    TT.BANG_P: "!p",
+    TT.GT: ">",
+    TT.GE: ">=",
+    TT.LT: "<",
+    TT.LE: "<=",
+    TT.EQ: "=",
+    TT.NEQ: "<> or !=",
+    TT.LPAREN: "(",
+    TT.RPAREN: ")"
+}
+
 class Token:
     def __init__(self, tt: TT, pos: int, data: Any):
         self.tt = tt
